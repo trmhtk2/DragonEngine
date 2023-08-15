@@ -12,6 +12,16 @@ namespace DragonEngine
         public abstract void Rotate(int rotation);
         public abstract void OnStart();
     }
+
+   /* public class Text : Graphic
+    {
+        string text;
+        public Text(string graphic = "") 
+        {
+            this.text = graphic;
+        }
+    } */
+
     public class ASCII : Graphic
     {
 

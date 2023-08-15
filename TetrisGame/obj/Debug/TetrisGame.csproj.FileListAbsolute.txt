@@ -6,3 +6,11 @@ C:\Users\Golden Dragon\Documents\DragonGameEngine\TetrisGame\obj\Debug\TetrisGam
 C:\Users\Golden Dragon\Documents\DragonGameEngine\TetrisGame\obj\Debug\TetrisGame.csproj.CoreCompileInputs.cache
 C:\Users\Golden Dragon\Documents\DragonGameEngine\TetrisGame\obj\Debug\TetrisGame.exe
 C:\Users\Golden Dragon\Documents\DragonGameEngine\TetrisGame\obj\Debug\TetrisGame.pdb
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\obj\Debug\TetrisGame.csproj.AssemblyReference.cache
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\obj\Debug\TetrisGame.csproj.SuggestedBindingRedirects.cache
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\obj\Debug\TetrisGame.csproj.CoreCompileInputs.cache
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\obj\Debug\TetrisGame.exe
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\obj\Debug\TetrisGame.pdb
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\bin\Debug\TetrisGame.exe.config
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\bin\Debug\TetrisGame.exe
+C:\Users\Golden Dragon\Documents\DragonGameEngine\DragonEngine\DragonEngine\TetrisGame\bin\Debug\TetrisGame.pdb

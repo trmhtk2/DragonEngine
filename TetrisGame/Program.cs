@@ -31,7 +31,7 @@ namespace TetrisGame
             SetGameData(new GameData("TETRIS", new Vector2D(100, 63)));
             demoGameObject.OnStart();
 
-            Console.WriteLine(Text.ConvertTextSize("banana is tasty!", Text.TextSize.Large));
+            Console.WriteLine(TextSystem.ConvertTextSize("banana is tasty!", TextSystem.TextSize.Large));
             Screen.WaitForKey(false);
 
             while (true)
