@@ -27,6 +27,7 @@ namespace TetrisGame
         public static EventHandler <OnGameDataChangedArgs> onGameDataChanged;
         public static void Main(string[] args)
         {
+            //רועי מגניב
             onGameDataChanged += SyncGameData;
             SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
             demoGameObject.OnStart();

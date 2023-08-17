@@ -37,5 +37,11 @@ namespace DragonEngine
     public class LayerManger
     {
         private List<Layer> layers = new List<Layer>();
+
+        public Layer AddLayer(Layer layer, int order = -1)
+        {
+            layers.Add(layer);
+            return layer;
+        }
     }
 }
