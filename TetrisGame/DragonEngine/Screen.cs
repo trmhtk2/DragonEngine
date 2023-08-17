@@ -24,7 +24,7 @@ namespace DragonEngine
             Console.ReadKey(true);
 
         }
-        public Vector2D GetSize(bool buffer = false)
+        public static Vector2D GetSize(bool buffer = false)
         {
             if (buffer)
             {
