@@ -29,7 +29,7 @@ namespace DragonEngine
         private Pixel[,] content = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
         public string layerName = "New Layer";
 
-        public Layer(string name = "", Pixel[,] content = null) {
+        public Layer(string name = "New Layer", Pixel[,] content = null) {
             this.layerName = name;
             this.content = content;
         }
