@@ -43,9 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DragonEngine\Defaults.cs" />
     <Compile Include="DragonEngine\GameData.cs" />
     <Compile Include="DragonEngine\GameObject.cs" />
     <Compile Include="DragonEngine\Graphic.cs" />
+    <Compile Include="DragonEngine\LayerManger.cs" />
     <Compile Include="DragonEngine\Screen.cs" />
     <Compile Include="DragonEngine\TextSystem.cs" />
     <Compile Include="Program.cs" />
