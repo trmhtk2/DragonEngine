@@ -24,5 +24,13 @@ namespace DragonEngine
             Console.ReadKey(true);
 
         }
+        public Vector2D GetSize(bool buffer = false)
+        {
+            if (buffer)
+            {
+                return new Vector2D(Console.BufferWidth, Console.BufferHeight);
+            }
+            return new Vector2D(Console.WindowWidth, Console.WindowHeight);
+        }
     }
 }

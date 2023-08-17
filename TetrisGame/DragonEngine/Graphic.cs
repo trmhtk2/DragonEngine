@@ -13,14 +13,74 @@ namespace DragonEngine
         public abstract void OnStart();
     }
 
-   /* public class Text : Graphic
+    public class Text : Graphic
     {
+        string basicText;
         string text;
-        public Text(string graphic = "") 
+        string[] sizedTextLines;
+        TextSystem.TextSize textSize;
+        public Text(string graphic = "", TextSystem.TextSize textSize = TextSystem.TextSize.Medium) 
         {
-            this.text = graphic;
+            SetText(graphic, textSize);
+            //SyncTextSize();
         }
-    } */
+
+
+        public override void OnStart()
+        {
+            //Start
+            sizedTextLines = GetSizedTextLines();
+        }
+
+        public override void Rotate(int rotation)
+        {
+            //Rotate
+        }
+
+        public string SyncTextSize()
+        {
+           text = TextSystem.ConvertTextSize(basicText, textSize);
+            return text;
+        }
+
+        public override void DrawGraphic(Vector2D position = null)
+        {
+            int sizedTextHeight = GetSizedTextLinesLength();
+            position = position ?? Vector2D.Zero;
+
+            for (int i = 0; i < sizedTextHeight; i++)
+            {
+                string line = GetSizedTextLine(i);
+                int artWidth = line.Length;
+                int leftX = position.x - artWidth / 2;
+                int currentY = position.y - sizedTextHeight / 2 + i;
+
+                Console.SetCursorPosition(leftX, currentY);
+                Console.Write(line);
+            }
+        }
+
+        public string GetBasicText() { return basicText; }
+        public string GetText() { return text; }
+        public string GetTextLength() { return text; }
+
+        public string[] GetSizedTextLines() { return text.Split('\n'); }
+        public string GetSizedTextLine(int line) { if (line <= sizedTextLines.Length || line <= 0) { return sizedTextLines[line]; } return string.Empty; }
+        public int GetTextLineLength(int line) { if (line <= sizedTextLines.Length || line <= 0) { return sizedTextLines[line].Length; } return 0; }
+        public int GetSizedTextLinesLength() { return sizedTextLines.Length; }
+
+        public string SetText(string text, TextSystem.TextSize textSize, bool syncTextSize = true)
+        {
+            basicText = text;
+            this.textSize = textSize;
+
+            if(syncTextSize) SyncTextSize();
+            return text;
+
+        }
+
+        public int GetBasicTextLength() { return basicText.Length; }
+    }
 
     public class ASCII : Graphic
     {

@@ -19,8 +19,8 @@ namespace TetrisGame
 
     public class Program
     {
-        public static ASCII demoGraphic = new ASCII("      █ █       \r\n███   █ █    ████\r\n  █          █   \r\n  ████████████   \r\n");
-        public static GameObject demoGameObject = new GameObject(Screen.GetCenterPoint(), 0, 3, null, demoGraphic);
+        public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
+        public static GameObject demoGameObject = new GameObject(Screen.GetCenterPoint(), 0, 3, null, demoText);
 
         public static GameData currentGameData;
 
@@ -28,24 +28,16 @@ namespace TetrisGame
         public static void Main(string[] args)
         {
             onGameDataChanged += SyncGameData;
-            SetGameData(new GameData("TETRIS", new Vector2D(100, 63)));
+            SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
             demoGameObject.OnStart();
-
-            Console.WriteLine(TextSystem.ConvertTextSize("banana is tasty!", TextSystem.TextSize.Large));
-            Screen.WaitForKey(false);
 
             while (true)
             {
-                demoGraphic.Rotate(90);
+                Thread.Sleep(10);
+                demoGameObject.SetPosition(new Vector2D(demoGameObject.GetPosition().x + 1, demoGameObject.GetPosition().y));
                 Console.Clear();
-              //  demoGraphic.Rotate(Rotation.RotationAngle._90);
-                demoGraphic.DrawGraphic(Screen.GetCenterPoint());
-               // demoGameObject.OnUpdate();
-                Thread.Sleep(1000);
-//                demoGameObject.SetRotation(Rotation.RotationAngle._90);
-           // Screen.WaitForKey(true);
-
-            }  
+                demoGameObject.OnUpdate();
+            }
         }
 
         static void SyncGameData(object sender, OnGameDataChangedArgs e)
