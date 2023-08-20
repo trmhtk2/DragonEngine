@@ -8,13 +8,36 @@ namespace DragonEngine
 {
     public abstract class Graphic
     {
+     /*   public enum GraphicType
+        {
+            ASCII,
+            Text,
+        } */
+
         public abstract void DrawGraphic(Vector2D position = null);
         public abstract void Rotate(int rotation);
         public abstract void OnStart();
+
+        // public abstract GraphicType GetGraphicType();
+
+        public abstract Graphic Clone();
     }
 
     public class Text : Graphic
     {
+        public override Graphic Clone()
+        {
+            Text clone = new Text(GetBasicText(), GetTextSize());
+            clone.OnStart();
+            return clone;
+        }
+        /*    GraphicType graphicType = GraphicType.Text;
+            public override GraphicType GetGraphicType()
+            {
+                return graphicType;
+            } */
+
+
         string basicText;
         string text;
         string[] sizedTextLines;
@@ -80,16 +103,32 @@ namespace DragonEngine
         }
 
         public int GetBasicTextLength() { return basicText.Length; }
+        public TextSystem.TextSize GetTextSize() { return textSize; } 
+
+
     }
 
     public class ASCII : Graphic
     {
+       /* GraphicType graphicType = GraphicType.ASCII;
+        public override GraphicType GetGraphicType()
+        {
+            return graphicType;
+        } */
+
+        public override Graphic Clone()
+        {
+            ASCII clone = new ASCII(GetArt());
+            clone.OnStart();
+            return clone;
+        }
 
         private string art = "";
         private string originalArt = ""; // Store the original art to be used by ResetRotation
 
         private string[] artLines;
         private int artLinesAmount;
+        private Object attachedObject = null;
 
         public ASCII(string graphic = "")
         {
@@ -116,6 +155,7 @@ namespace DragonEngine
             artLinesAmount = artLines.Length; // Update artLinesAmount whenever art changes
             return this.art;
         }
+
         public int GetArtLength() { return art.Length; }
         public string[] GetArtLines() { return art.Split('\n'); }
         public string GetArtLine(int line) { if (line <= artLines.Length || line <= 0) { return artLines[line]; } return string.Empty; }

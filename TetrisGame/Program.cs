@@ -20,7 +20,7 @@ namespace TetrisGame
     public class Program
     {
         public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
-        public static GameObject demoGameObject = new GameObject(Screen.GetCenterPoint(), 0, 3, null, demoText);
+        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 3, null, demoText);
 
         public static GameData currentGameData;
 

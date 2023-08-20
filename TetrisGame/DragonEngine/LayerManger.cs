@@ -29,9 +29,24 @@ namespace DragonEngine
         private Pixel[,] content = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
         public string layerName = "New Layer";
 
-        public Layer(string name = "New Layer", Pixel[,] content = null) {
+        public Layer(string name = "", Pixel[,] content = null) {
+            if(name == "")
+            {
+                MathFunctions.GetRandomDigitSequence(10);
+            }
             this.layerName = name;
             this.content = content;
+        }
+        public Layer(Pixel[,] content)
+        {
+            this.content = content;
+            layerName = MathFunctions.GetRandomDigitSequence(10).ToString();
+
+        }
+
+        public Pixel[,] GetContent()
+        {
+            return content;
         }
     }
     public class LayerManger
@@ -42,6 +57,23 @@ namespace DragonEngine
         {
             layers.Add(layer);
             return layer;
+        }
+
+        public void Display()
+        {
+            foreach (var layer in layers)
+            {
+                for (int i = 0; i < Screen.GetSize().x; i++)
+                {
+                    for (int j = 0; j < Screen.GetSize().y; j++)
+                    {
+                        Pixel pixel = layer.GetContent()[i, j];
+                        Console.ForegroundColor = pixel.color;
+                        Console.Write(pixel.content);
+                    }
+                    Console.WriteLine();
+                }
+            }
         }
     }
 }
