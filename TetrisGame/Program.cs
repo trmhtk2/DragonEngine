@@ -20,13 +20,15 @@ namespace TetrisGame
     public class Program
     {
         public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
-        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 3, null, demoText);
+        public static ASCII demoASCII = new ASCII("░░██████░░\r\n░██░░░░█░░\r\n██░░░░░█░░\r\n██░░░░░█░░\r\n░████░░█░░\r\n░░░░█████░\r\n░░░░░░░░██\r\n");
+        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 3, null, demoASCII);
 
         public static GameData currentGameData;
 
         public static EventHandler <OnGameDataChangedArgs> onGameDataChanged;
         public static void Main(string[] args)
         {
+            LayerManger.Display();
             //רועי מגניב
             onGameDataChanged += SyncGameData;
             SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));

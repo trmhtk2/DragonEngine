@@ -14,6 +14,9 @@ namespace DragonEngine
             Text,
         } */
 
+        public abstract Layer GetLayer();
+        public abstract Layer SetLayer(Layer layer);
+
         public abstract void DrawGraphic(Vector2D position = null);
         public abstract void Rotate(int rotation);
         public abstract void OnStart();
@@ -103,7 +106,12 @@ namespace DragonEngine
         }
 
         public int GetBasicTextLength() { return basicText.Length; }
-        public TextSystem.TextSize GetTextSize() { return textSize; } 
+        public TextSystem.TextSize GetTextSize() { return textSize; }
+
+        public Layer layer;
+
+        public override Layer GetLayer() { return layer; }
+        public override Layer SetLayer(Layer layer) { return this.layer = layer; }
 
 
     }
@@ -176,8 +184,43 @@ namespace DragonEngine
             return maxLength;
         }
 
+        public Layer layer;
+
+        public override Layer GetLayer() { return layer; }
+        public override Layer SetLayer(Layer layer) { return this.layer = layer; }
+
+        public Pixel[,] GetArtAsPixels()
+        {
+            string[] lines = GetArtLines();
+            int maxWidth = GetLongestLineLength();
+            int height = lines.Length;
+
+            Pixel[,] result = new Pixel[maxWidth, height];
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < maxWidth; x++)
+                {
+                    if (x < lines[y].Length)
+                    {
+                        result[x, y] = new Pixel(lines[y][x]);
+                    }
+                    else
+                    {
+                        result[x, y] = new Pixel(' '); // fill with space for lines shorter than the maxWidth
+                    }
+                }
+            }
+
+            return result;
+        }
+
         public override void OnStart()
         {
+            if(layer == null)
+            {
+                SetLayer(new Layer(MathFunctions.GetRandomDigitSequence().ToString()));
+            }
             artLines = GetArtLines();
             artLinesAmount = GetArtLinesLength();
         }
@@ -197,8 +240,24 @@ namespace DragonEngine
             artLinesAmount = artLines.Length; // Update artLinesAmount
         }
 
+
         public override void DrawGraphic(Vector2D position = null)
         {
+            Pixel[,] pixels = GetArtAsPixels();
+            int height = pixels.GetLength(1);
+            int width = pixels.GetLength(0);
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Vector2D pixelPosition = new Vector2D(position.x + x - width / 2, position.y + y - height / 2);
+                    layer.SetPixel(pixelPosition, pixels[x, y]);
+                }
+            }
+
+
+/*
             int artHeight = GetArtLinesLength();
             position = position ?? Vector2D.Zero;
 
@@ -211,7 +270,7 @@ namespace DragonEngine
 
                 Console.SetCursorPosition(leftX, currentY);
                 Console.Write(line);
-            }
+            } */
         }
 
         private string RotateString(string s, int rotation)

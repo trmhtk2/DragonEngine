@@ -35,6 +35,10 @@ namespace DragonEngine
                 MathFunctions.GetRandomDigitSequence(10);
             }
             this.layerName = name;
+            if(content == null)
+            {
+                content = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
+            }
             this.content = content;
         }
         public Layer(Pixel[,] content)
@@ -44,22 +48,32 @@ namespace DragonEngine
 
         }
 
+        public Pixel GetPixel(Vector2D position)
+        {
+            return GetContent()[position.x, position.y];
+        }
+
+        public Pixel SetPixel(Vector2D position, Pixel pixel)
+        {
+            return content[position.x, position.y] = pixel;
+        }
+
         public Pixel[,] GetContent()
         {
             return content;
         }
     }
-    public class LayerManger
+    public static class LayerManger
     {
-        private List<Layer> layers = new List<Layer>();
+        private static List<Layer> layers = new List<Layer>();
 
-        public Layer AddLayer(Layer layer, int order = -1)
+        public static Layer AddLayer(Layer layer, int order = -1)
         {
             layers.Add(layer);
             return layer;
         }
 
-        public void Display()
+        public static void Display()
         {
             foreach (var layer in layers)
             {
