@@ -26,6 +26,10 @@ namespace TetrisGame
         public static GameData currentGameData;
 
         public static EventHandler <OnGameDataChangedArgs> onGameDataChanged;
+
+
+
+        //רועי המגניב!!!
         public static void Main(string[] args)
         {
             LayerManger.Display();
