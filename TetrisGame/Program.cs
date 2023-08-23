@@ -39,8 +39,14 @@ namespace TetrisGame
             SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
             demoGameObject.OnStart();
 
+            Manger1.Run();
+            Manger2.Run();
+
             while (true)
             {
+                Manger1.Loop();
+                Manger2.Loop();
+
                 Thread.Sleep(10);
                 demoGameObject.SetPosition(new Vector2D(demoGameObject.GetPosition().x + 1, demoGameObject.GetPosition().y));
                 Console.Clear();

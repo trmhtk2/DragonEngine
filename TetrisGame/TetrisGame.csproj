@@ -51,6 +51,8 @@
     <Compile Include="DragonEngine\MathFunctions.cs" />
     <Compile Include="DragonEngine\Screen.cs" />
     <Compile Include="DragonEngine\TextSystem.cs" />
+    <Compile Include="Manger1.cs" />
+    <Compile Include="Manger2.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DragonEngine\Vector2D.cs" />
