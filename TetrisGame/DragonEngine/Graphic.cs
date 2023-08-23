@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -217,10 +218,7 @@ namespace DragonEngine
 
         public override void OnStart()
         {
-            if(layer == null)
-            {
-                SetLayer(new Layer(MathFunctions.GetRandomDigitSequence().ToString()));
-            }
+            SetLayer(LayerManager.FindLayerByOrder(0));
             artLines = GetArtLines();
             artLinesAmount = GetArtLinesLength();
         }
@@ -243,34 +241,20 @@ namespace DragonEngine
 
         public override void DrawGraphic(Vector2D position = null)
         {
-            Pixel[,] pixels = GetArtAsPixels();
-            int height = pixels.GetLength(1);
-            int width = pixels.GetLength(0);
+            position = position ?? Screen.GetCenterPoint();
 
-            for (int y = 0; y < height; y++)
+            Pixel[,] pixels = GetArtAsPixels();
+            Vector2D size = new Vector2D(pixels.GetLength(0), pixels.GetLength(1));
+
+            for (int y = 0; y < size.y; y++)
             {
-                for (int x = 0; x < width; x++)
+                for (int x = 0; x < size.x; x++)
                 {
-                    Vector2D pixelPosition = new Vector2D(position.x + x - width / 2, position.y + y - height / 2);
+                    Vector2D pixelPosition = new Vector2D(position.x + x - size.x / 2, position.y + y - size.y / 2);
                     layer.SetPixel(pixelPosition, pixels[x, y]);
+                    Console.Write(layer.GetPixel(new Vector2D(x, y)).content);
                 }
             }
-
-
-/*
-            int artHeight = GetArtLinesLength();
-            position = position ?? Vector2D.Zero;
-
-            for (int i = 0; i < artHeight; i++)
-            {
-                string line = artLines[i];
-                int artWidth = line.Length;
-                int leftX = position.x - artWidth / 2;
-                int currentY = position.y - artHeight / 2 + i;
-
-                Console.SetCursorPosition(leftX, currentY);
-                Console.Write(line);
-            } */
         }
 
         private string RotateString(string s, int rotation)

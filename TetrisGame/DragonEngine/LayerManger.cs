@@ -10,82 +10,163 @@ namespace DragonEngine
     {
         public char content;
         public ConsoleColor color;
-        // Constructor with only content provided, uses default color
-        public Pixel(char content = '█')
+        private static Pixel opaque;
+
+        public static Pixel GetOpaque()
+        {
+            opaque = opaque ?? new Pixel('█');
+            return opaque;
+        }
+        public Pixel(char content = ' ')
         {
             this.content = content;
             this.color = Defaults.Color;
         }
 
-        // Constructor with both content and color provided
         public Pixel(char content, ConsoleColor customColor)
         {
             this.content = content;
             this.color = customColor;
         }
     }
+
     public class Layer
     {
-        private Pixel[,] content = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
-        public string layerName = "New Layer";
+        private Pixel[,] content;
+        public string layerName;
 
-        public Layer(string name = "", Pixel[,] content = null) {
-            if(name == "")
+        public Layer(string name = "", Pixel[,] content = null)
+        {
+            if (string.IsNullOrEmpty(name))
             {
-                MathFunctions.GetRandomDigitSequence(10);
+                layerName = MathFunctions.GetRandomDigitSequence(10).ToString();
             }
-            this.layerName = name;
-            if(content == null)
+            else
             {
-                content = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
+                this.layerName = name;
             }
-            this.content = content;
+
+            this.content = content ?? InitializeEmptyContent();
         }
+
         public Layer(Pixel[,] content)
         {
             this.content = content;
             layerName = MathFunctions.GetRandomDigitSequence(10).ToString();
-
         }
 
         public Pixel GetPixel(Vector2D position)
         {
-            return GetContent()[position.x, position.y];
+            return content[position.x, position.y] ?? new Pixel();
         }
 
         public Pixel SetPixel(Vector2D position, Pixel pixel)
         {
+            LayerManager.IsBufferDirty = true;
             return content[position.x, position.y] = pixel;
         }
 
-        public Pixel[,] GetContent()
+        private Pixel[,] InitializeEmptyContent()
         {
-            return content;
+            Vector2D size = Screen.GetSize();
+            Pixel[,] tempContent = new Pixel[size.x, size.y];
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    tempContent[x, y] = null; // Lazily initialize pixels.
+                }
+            }
+
+            return tempContent;
         }
     }
-    public static class LayerManger
+
+    public static class LayerManager
     {
         private static List<Layer> layers = new List<Layer>();
+        private static Pixel[,] screenBuffer = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
 
-        public static Layer AddLayer(Layer layer, int order = -1)
+        public static bool IsBufferDirty { get; set; } = true;
+
+        public static void OnStart()
         {
+            for (int i = 0; i < 5; i++) // Using 5 directly, but you can use a named constant
+            {
+                AddLayer(new Layer());
+            }
+        }
+
+        public static Layer FindLayerByOrder(int order)
+        {
+            return layers[order];
+        }
+
+        public static Layer AddLayer(Layer layer)
+        {
+            IsBufferDirty = true;
             layers.Add(layer);
             return layer;
         }
 
+        public static void OnLoop()
+        {
+          /*  Vector2D RandomPoint = new Vector2D(MathFunctions.GetRandom(1, Screen.GetSize().x - 1), MathFunctions.GetRandom(1, (int)(Screen.GetSize().y * 1f)));
+            Console.WriteLine(Screen.GetSize().ToString() + "  :  " + RandomPoint.ToString());
+            FindLayerByOrder(0).SetPixel(RandomPoint, Pixel.GetOpaque()); */
+        }
+
         public static void Display()
         {
+            if (!IsBufferDirty) return;
+
+            StringBuilder screenBuilder = new StringBuilder();
+
+            ClearBuffer();
+
             foreach (var layer in layers)
             {
-                for (int i = 0; i < Screen.GetSize().x; i++)
+                CompositeLayerOntoBuffer(layer);
+            }
+
+            for (int i = 0; i < Screen.GetSize().x; i++)
+            {
+                for (int j = 0; j < Screen.GetSize().y; j++)
                 {
-                    for (int j = 0; j < Screen.GetSize().y; j++)
+                    Pixel pixel = screenBuffer[i, j] ?? new Pixel();
+                    Console.ForegroundColor = pixel.color;
+                    screenBuilder.Append(pixel.content);
+                }
+                screenBuilder.AppendLine();
+            }
+
+            Console.Write(screenBuilder.ToString());
+            IsBufferDirty = false;
+        }
+
+        private static void ClearBuffer()
+        {
+            for (int i = 0; i < Screen.GetSize().x; i++)
+            {
+                for (int j = 0; j < Screen.GetSize().y; j++)
+                {
+                    screenBuffer[i, j] = null; 
+                }
+            }
+        }
+
+        private static void CompositeLayerOntoBuffer(Layer layer)
+        {
+            for (int i = 0; i < Screen.GetSize().x; i++)
+            {
+                for (int j = 0; j < Screen.GetSize().y; j++)
+                {
+                    Pixel pixel = layer.GetPixel(new Vector2D(i, j));
+                    if (pixel != null && pixel.content != ' ')
                     {
-                        Pixel pixel = layer.GetContent()[i, j];
-                        Console.ForegroundColor = pixel.color;
-                        Console.Write(pixel.content);
+                        screenBuffer[i, j] = pixel;
                     }
-                    Console.WriteLine();
                 }
             }
         }

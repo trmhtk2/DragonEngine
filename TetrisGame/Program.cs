@@ -19,9 +19,10 @@ namespace TetrisGame
 
     public class Program
     {
+
         public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
-        public static ASCII demoASCII = new ASCII("░░██████░░\r\n░██░░░░█░░\r\n██░░░░░█░░\r\n██░░░░░█░░\r\n░████░░█░░\r\n░░░░█████░\r\n░░░░░░░░██\r\n");
-        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 3, null, demoASCII);
+        public static ASCII demoASCII = new ASCII("░░░░░██░░░░░░░███░\r\n░░░░░█░░░░░░░██░██\r\n░░░░░░░░░░░░██░░██\r\n░░░░░░░░░░░░█░░░░█\r\n░░░░░░░░░░░█░░░███\r\n░░░░░░░░░███████░█\r\n░░░░░░░█████░░░░░█\r\n░░░░░░████░░░░░░░░\r\n░░░░███░░█████░░░█\r\n");
+        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 0, null, demoASCII);
 
         public static GameData currentGameData;
 
@@ -33,10 +34,11 @@ namespace TetrisGame
         //cbbbv
         public static void Main(string[] args)
         {
-            LayerManger.Display();
-            //asdaksdhasdkjhksad
+
             onGameDataChanged += SyncGameData;
             SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
+
+            LayerManager.OnStart(); 
             demoGameObject.OnStart();
 
             Manger1.Run();
@@ -44,12 +46,14 @@ namespace TetrisGame
 
             while (true)
             {
+                LayerManager.OnLoop();
+                LayerManager.Display();
+
                 Manger1.Loop();
                 Manger2.Loop();
 
                 Thread.Sleep(10);
-                demoGameObject.SetPosition(new Vector2D(demoGameObject.GetPosition().x + 1, demoGameObject.GetPosition().y));
-                Console.Clear();
+             //   demoGameObject.SetPosition(new Vector2D(demoGameObject.GetPosition().x + 1, demoGameObject.GetPosition().y));
                 demoGameObject.OnUpdate();
             }
         }
@@ -59,6 +63,7 @@ namespace TetrisGame
             Console.Title = e.gameData.title;
             Console.SetWindowSize(e.gameData.size.x, e.gameData.size.y);
             Console.SetBufferSize(e.gameData.size.x, e.gameData.size.y);
+            Console.CursorVisible = e.gameData.showCursor;
         }
 
         public static GameData SetGameData(GameData gameData)

@@ -7,11 +7,16 @@ using System.Threading.Tasks;
 namespace DragonEngine
 {
     public class GameData {
+        public static GameData instance;
         public string title = "New Game";
         public Vector2D size = new Vector2D(20, 20);
-        public GameData(string title = "", Vector2D size = null) {
+        public bool showCursor = false;
+        public GameData(string title = "", Vector2D size = null, bool showCursor = false)
+        {
+            instance = this;
             this.title = title;
             this.size = size ?? new Vector2D(61, 30);
+            this.showCursor = showCursor;
         }
     }
 }

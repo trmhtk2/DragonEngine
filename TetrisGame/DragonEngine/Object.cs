@@ -51,6 +51,7 @@ namespace DragonEngine
 
         public void OnStart() {
            SetGraphic(GetGraphic().Clone());
+            GetGraphic().OnStart();
 
             graphic.OnStart();
             Console.WriteLine("Start");
@@ -59,6 +60,8 @@ namespace DragonEngine
 
         public void OnUpdate()
         {
+            graphic.DrawGraphic(GetPosition());
+
 
 
             //Anything else Here

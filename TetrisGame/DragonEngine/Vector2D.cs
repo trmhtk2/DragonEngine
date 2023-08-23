@@ -27,5 +27,10 @@ namespace DragonEngine
         /// Returns a Vector2D with 1 as the value of X and Y
         /// </summary>
         public static Vector2D One = new Vector2D(1, 1);
+
+        public override string ToString()
+        {
+            return $"({x}:{y})";
+        }
     }
 }

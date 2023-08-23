@@ -30,7 +30,7 @@ namespace DragonEngine
             {
                 return new Vector2D(Console.BufferWidth, Console.BufferHeight);
             }
-            return new Vector2D(Console.WindowWidth, Console.WindowHeight);
+            return GameData.instance.size;
         }
     }
 }
