@@ -34,7 +34,7 @@ namespace TetrisGame
         public static void Main(string[] args)
         {
             LayerManger.Display();
-            //בננה!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            //asdaksdhasdkjhksad
             onGameDataChanged += SyncGameData;
             SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
             demoGameObject.OnStart();
