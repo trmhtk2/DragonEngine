@@ -56,11 +56,9 @@ namespace DragonEngine
         public Graphic SetGraphic (Graphic graphic) { this.graphic = graphic; return this.graphic; }
 
         public void OnStart() {
-           SetGraphic(GetGraphic().Clone());
             GetGraphic().OnStart();
 
             graphic.OnStart();
-            Console.WriteLine("Start");
             graphic.DrawGraphic(GetPosition());
         }
 

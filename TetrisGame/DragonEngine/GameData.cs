@@ -14,6 +14,7 @@ namespace DragonEngine
         public GameData(string title, Vector2D size, bool showCursor = false)
         {
             instance = this;
+            this.size = size;
             this.title = title;
             this.showCursor = showCursor;
         }

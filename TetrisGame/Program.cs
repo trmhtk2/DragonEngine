@@ -36,10 +36,11 @@ namespace TetrisGame
         {
 
             onGameDataChanged += SyncGameData;
-            SetGameData(new GameData("TETRIS", new Vector2D(239, 63)));
+            SetGameData(new GameData("TETRIS", new Vector2D(120, 50)));
 
             LayerManager.OnStart(); 
             demoGameObject.OnStart();
+
 
             Manger1.Run();
             Manger2.Run();
