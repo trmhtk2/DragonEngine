@@ -18,13 +18,22 @@ namespace DragonEngine
         public abstract Layer GetLayer();
         public abstract Layer SetLayer(Layer layer);
 
-        public abstract void DrawGraphic(Vector2D position = null);
+        public abstract void DrawGraphic();
+        public abstract void DrawGraphic(Vector2D position);
         public abstract void Rotate(int rotation);
         public abstract void OnStart();
 
         // public abstract GraphicType GetGraphicType();
 
         public abstract Graphic Clone();
+
+        public static Graphic Empty
+        {
+            get
+            {
+                return new ASCII("");
+            }
+        }
     }
 
     public class Text : Graphic
@@ -70,10 +79,14 @@ namespace DragonEngine
             return text;
         }
 
-        public override void DrawGraphic(Vector2D position = null)
+        public override void DrawGraphic()
+        {
+            DrawGraphic(Screen.GetCenterPoint());
+        }
+
+        public override void DrawGraphic(Vector2D position)
         {
             int sizedTextHeight = GetSizedTextLinesLength();
-            position = position ?? Vector2D.Zero;
 
             for (int i = 0; i < sizedTextHeight; i++)
             {
@@ -238,11 +251,15 @@ namespace DragonEngine
             artLinesAmount = artLines.Length; // Update artLinesAmount
         }
 
-
-        public override void DrawGraphic(Vector2D position = null)
+        public override void DrawGraphic()
         {
-            position = position ?? Screen.GetCenterPoint();
+            DrawGraphic(Screen.GetCenterPoint());
+        }
 
+
+
+        public override void DrawGraphic(Vector2D position)
+        {
             Pixel[,] pixels = GetArtAsPixels();
             Vector2D size = new Vector2D(pixels.GetLength(0), pixels.GetLength(1));
 

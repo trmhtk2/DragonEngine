@@ -63,7 +63,8 @@ namespace DragonEngine
         public Pixel SetPixel(Vector2D position, Pixel pixel)
         {
             LayerManager.IsBufferDirty = true;
-            return content[position.x, position.y] = pixel;
+            //return content[position.x, position.y] = pixel;
+            return null;
         }
 
         private Pixel[,] InitializeEmptyContent()

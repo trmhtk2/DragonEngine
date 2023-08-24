@@ -22,7 +22,7 @@ namespace TetrisGame
 
         public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
         public static ASCII demoASCII = new ASCII("░░░░░██░░░░░░░███░\r\n░░░░░█░░░░░░░██░██\r\n░░░░░░░░░░░░██░░██\r\n░░░░░░░░░░░░█░░░░█\r\n░░░░░░░░░░░█░░░███\r\n░░░░░░░░░███████░█\r\n░░░░░░░█████░░░░░█\r\n░░░░░░████░░░░░░░░\r\n░░░░███░░█████░░░█\r\n");
-        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, 0, null, demoASCII);
+        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, demoASCII);
 
         public static GameData currentGameData;
 

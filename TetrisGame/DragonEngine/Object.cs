@@ -8,7 +8,7 @@ namespace DragonEngine
 {
     public class Object
     {
-        private Vector2D _position = Vector2D.Zero;
+        private Vector2D _position = Vector2D.zero;
 
         private Vector2D Position
         {
@@ -28,11 +28,17 @@ namespace DragonEngine
         int preScale;
         Graphic preGraphic;
 
-        public Object(Vector2D position = null, int rotation = 0, int scale = 0, Vector2D velocity = null, Graphic graphic = null)
+        public Object(Graphic graphic = null, int rotation = 0)
         {
-            this.Position = position ?? Vector2D.Zero;
+            graphic = graphic ?? Graphic.Empty;
+            SetGraphic(graphic);
+
+            this.Position = Screen.GetCenterPoint();
+        }
+        public Object(Vector2D position, int rotation = 0, Graphic graphic = null)
+        {
+            this.Position = position;
             this.Rotation = rotation;
-            this.Velocity = velocity ?? Vector2D.Zero;
             this.graphic = graphic ?? new ASCII();
         }
 
