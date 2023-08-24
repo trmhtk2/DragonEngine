@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DragonEngine
 {
-    public class Object
+    public class Entity
     {
         private Vector2D _position = Vector2D.zero;
 
@@ -28,14 +28,14 @@ namespace DragonEngine
         int preScale;
         Graphic preGraphic;
 
-        public Object(Graphic graphic = null, int rotation = 0)
+        public Entity(Graphic graphic = null, int rotation = 0)
         {
             graphic = graphic ?? Graphic.Empty;
             SetGraphic(graphic);
 
             this.Position = Screen.GetCenterPoint();
         }
-        public Object(Vector2D position, int rotation = 0, Graphic graphic = null)
+        public Entity(Vector2D position, int rotation = 0, Graphic graphic = null)
         {
             this.Position = position;
             this.Rotation = rotation;
@@ -64,6 +64,7 @@ namespace DragonEngine
 
         public void OnUpdate()
         {
+            graphic.SetLayer(LayerManager.FindLayerByOrder(0));
             graphic.DrawGraphic(GetPosition());
 
 

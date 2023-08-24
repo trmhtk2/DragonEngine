@@ -150,7 +150,7 @@ namespace DragonEngine
 
         private string[] artLines;
         private int artLinesAmount;
-        private Object attachedObject = null;
+        private System.Object attachedObject = null;
 
         public ASCII(string graphic = "")
         {

@@ -20,9 +20,7 @@ namespace TetrisGame
     public class Program
     {
 
-        public static Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
-        public static ASCII demoASCII = new ASCII("░░░░░██░░░░░░░███░\r\n░░░░░█░░░░░░░██░██\r\n░░░░░░░░░░░░██░░██\r\n░░░░░░░░░░░░█░░░░█\r\n░░░░░░░░░░░█░░░███\r\n░░░░░░░░░███████░█\r\n░░░░░░░█████░░░░░█\r\n░░░░░░████░░░░░░░░\r\n░░░░███░░█████░░░█\r\n");
-        public static DragonEngine.Object demoGameObject = new DragonEngine.Object(Screen.GetCenterPoint(), 0, demoASCII);
+
 
         public static GameData currentGameData;
 
@@ -38,8 +36,12 @@ namespace TetrisGame
             onGameDataChanged += SyncGameData;
             SetGameData(new GameData("TETRIS", new Vector2D(120, 50)));
 
-            LayerManager.OnStart(); 
-            demoGameObject.OnStart();
+            LayerManager.OnStart();
+
+            Text demoText = new Text("Explosion! banana", TextSystem.TextSize.Large);
+            ASCII demoASCII = new ASCII("░░░░░██░░░░░░░███░\r\n░░░░░█░░░░░░░██░██\r\n░░░░░░░░░░░░██░░██\r\n░░░░░░░░░░░░█░░░░█\r\n░░░░░░░░░░░█░░░███\r\n░░░░░░░░░███████░█\r\n░░░░░░░█████░░░░░█\r\n░░░░░░████░░░░░░░░\r\n░░░░███░░█████░░░█\r\n");
+            Entity demoEntity = new Entity(demoASCII);
+            demoEntity.OnStart();
 
 
             Manger1.Run();
@@ -47,6 +49,10 @@ namespace TetrisGame
 
             while (true)
             {
+                Graphic graphic = new Text(Screen.GetCenterPoint().ToString());
+                Entity center = new Entity(Screen.GetCenterPoint(), 0, graphic);
+                 //   Console.Write(demoEntity.GetPosition());
+                demoEntity.SetPosition(Screen.GetCenterPoint());
                 LayerManager.OnLoop();
                 LayerManager.Display();
 
@@ -55,15 +61,15 @@ namespace TetrisGame
 
                 Thread.Sleep(10);
              //   demoGameObject.SetPosition(new Vector2D(demoGameObject.GetPosition().x + 1, demoGameObject.GetPosition().y));
-                demoGameObject.OnUpdate();
+                demoEntity.OnUpdate();
             }
         }
 
         static void SyncGameData(object sender, OnGameDataChangedArgs e)
         {
             Console.Title = e.gameData.title;
-            Console.SetWindowSize(e.gameData.size.x, e.gameData.size.y);
             Console.SetBufferSize(e.gameData.size.x, e.gameData.size.y);
+            Console.SetWindowSize(e.gameData.size.x, e.gameData.size.y);
             Console.CursorVisible = e.gameData.showCursor;
         }
 

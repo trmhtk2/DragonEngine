@@ -10,10 +10,7 @@ namespace DragonEngine
     {
         public static Vector2D GetCenterPoint(int offsetLeft = 0, int offsetTop = 0)
         {
-            int leftPosition = ((Console.WindowWidth) / 2) + offsetLeft;
-            int topPosition = ((Console.WindowHeight) / 2) + offsetTop;
-
-            return new Vector2D(leftPosition, topPosition);
+            return new Vector2D(Console.WindowWidth / 2 + offsetLeft, Console.WindowHeight / 2 + offsetTop);
         }
         public static void WaitForKey(bool showText = false)
         {

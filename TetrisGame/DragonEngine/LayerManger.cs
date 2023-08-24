@@ -35,7 +35,7 @@ namespace DragonEngine
         private Pixel[,] content;
         public string layerName;
 
-        public Layer(string name = "", Pixel[,] content = null)
+        public Layer(string name = "")
         {
             if (string.IsNullOrEmpty(name))
             {
@@ -46,13 +46,7 @@ namespace DragonEngine
                 this.layerName = name;
             }
 
-            this.content = content ?? InitializeEmptyContent();
-        }
-
-        public Layer(Pixel[,] content)
-        {
-            this.content = content;
-            layerName = MathFunctions.GetRandomDigitSequence(10).ToString();
+            this.content = InitializeEmptyContent();
         }
 
         public Pixel GetPixel(Vector2D position)
@@ -63,8 +57,7 @@ namespace DragonEngine
         public Pixel SetPixel(Vector2D position, Pixel pixel)
         {
             LayerManager.IsBufferDirty = true;
-            //return content[position.x, position.y] = pixel;
-            return null;
+            return content[position.x, position.y] = pixel;
         }
 
         private Pixel[,] InitializeEmptyContent()
@@ -89,11 +82,13 @@ namespace DragonEngine
         private static List<Layer> layers = new List<Layer>();
         private static Pixel[,] screenBuffer = new Pixel[Screen.GetSize().x, Screen.GetSize().y];
 
+        private static int startLayers = 1;
+
         public static bool IsBufferDirty { get; set; } = true;
 
         public static void OnStart()
         {
-            for (int i = 0; i < 5; i++) // Using 5 directly, but you can use a named constant
+            for (int i = 0; i < startLayers; i++)
             {
                 AddLayer(new Layer());
             }

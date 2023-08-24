@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="DragonEngine\Defaults.cs" />
     <Compile Include="DragonEngine\GameData.cs" />
-    <Compile Include="DragonEngine\Object.cs" />
+    <Compile Include="DragonEngine\Entity.cs" />
     <Compile Include="DragonEngine\Graphic.cs" />
     <Compile Include="DragonEngine\LayerManger.cs" />
     <Compile Include="DragonEngine\MathFunctions.cs" />
